@@ -40,6 +40,8 @@ function getLastOfPath(object, path, Empty) {
     if (canNotTraverseDeeper()) return {};
 
     const key = cleanKey(stack.shift());
+    // Prevent prototype pollution
+    if (!object.hasOwnProperty(key)) return {};
     if (!object[key] && Empty) object[key] = new Empty();
     object = object[key];
   }
